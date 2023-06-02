@@ -4,12 +4,8 @@ on: [ push ]
 
 jobs:
   build:
-    name: ${{ matrix.version }} on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        version: [ latest ]
-        os: [ ubuntu-latest ]
+    name: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Check out
         uses: actions/checkout@v3
