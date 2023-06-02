@@ -1,0 +1,29 @@
+name: Quarkus native build
+
+on: [ push ]
+
+jobs:
+  build:
+    name: ${{ matrix.version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        version: [ latest ]
+        os: [ ubuntu-latest ]
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: '22.3.0'
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+
+      - name: Gradle setup
+        uses: gradle/gradle-build-action@v2
+
+      - name: Gradle build
+        run: ./gradlew clean build -Dquarkus.package.type=native
