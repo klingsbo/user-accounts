@@ -10,4 +10,5 @@ jobs:
   user-registrations:
     uses: klingsbo/ci-cd/.github/workflows/gradle-quarkus-native.yaml@v1.0
     with:
-      java_version: ${{ env.JAVA_VERSION }}
+      java-version: ${{ env.JAVA_VERSION }}
+      graalvm-version: ${{ env.GRAALVM_VERSION }}
