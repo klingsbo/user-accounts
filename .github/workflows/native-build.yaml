@@ -17,7 +17,6 @@ jobs:
           components: 'native-image'
           cache: 'gradle'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          native-image-job-reports: 'true'
 
       - name: Gradle setup
         uses: gradle/gradle-build-action@v2
