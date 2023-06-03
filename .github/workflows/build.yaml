@@ -1,0 +1,10 @@
+name: Quarkus native build
+
+on: [ push ]
+
+jobs:
+  user-registrations:
+    uses: klingsbo/ci-cd/.github/workflows/gradle-quarkus-native.yaml@v1.0
+    with:
+      java_version: '17'
+      graalvm_version: '22.3.2'
