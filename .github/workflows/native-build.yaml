@@ -22,4 +22,4 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Gradle build
-        run: ./gradlew clean build -Dquarkus.package.type=native
+        run: ./gradlew build -Dquarkus.package.type=native
