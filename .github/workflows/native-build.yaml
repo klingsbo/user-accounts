@@ -2,6 +2,10 @@ name: Quarkus native build
 
 on: [ push ]
 
+env:
+  JAVA_VERSION: '17'
+  GRAALVM_VERSION: '22.3.2'
+
 jobs:
   build:
     name: ubuntu-latest
@@ -12,8 +16,8 @@ jobs:
 
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: '22.3.2'
-          java-version: '17'
+          version: $GRAALVM_VERSION
+          java-version: $JAVA_VERSION
           components: 'native-image'
           cache: 'gradle'
           github-token: ${{ secrets.GITHUB_TOKEN }}
