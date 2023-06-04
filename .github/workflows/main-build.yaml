@@ -1,0 +1,14 @@
+name: Main branch build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  user-registrations:
+    uses: klingsbo/ci-cd/.github/workflows/gradle-graalvm-build.yaml@v1.1
+    with:
+      java_version: '17'
+      graalvm_version: '22.3.2'
+      build_opts: '-Dquarkus.package.type=native'
