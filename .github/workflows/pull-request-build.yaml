@@ -1,4 +1,4 @@
-name: Quarkus native build
+name: Pull-request build
 
 on:
   pull_request:

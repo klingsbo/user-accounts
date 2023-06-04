@@ -1,4 +1,4 @@
-name: Quarkus native build
+name: Main branch build
 
 on:
   push:
