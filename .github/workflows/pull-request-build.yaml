@@ -1,10 +1,13 @@
 name: Quarkus native build
 
-on: [ push ]
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   user-registrations:
-    uses: klingsbo/ci-cd/.github/workflows/gradle-graalvm-build.yaml@gradle-graalvm
+    uses: klingsbo/ci-cd/.github/workflows/gradle-graalvm-build.yaml@v1.0
     with:
       java_version: '17'
       graalvm_version: '22.3.2'
