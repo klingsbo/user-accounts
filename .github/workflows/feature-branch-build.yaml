@@ -22,6 +22,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: klingsbo/ci-cd/.github/workflows/gradle-graalvm-build.yaml@v1.1
+        with:
+          java_version: '17'
+          graalvm_version: '22.3.2'
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
