@@ -1,0 +1,27 @@
+name: Feature-branch build
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  user-registrations:
+    uses: klingsbo/ci-cd/.github/workflows/gradle-graalvm-build.yaml@v1.1
+    with:
+      java_version: '17'
+      graalvm_version: '22.3.2'
+
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+#      - uses: actions/checkout@v3
+#        with:
+#          fetch-depth: 0
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
