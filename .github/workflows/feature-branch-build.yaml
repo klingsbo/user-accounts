@@ -1,4 +1,4 @@
-name: Feature-branch build
+name: Feature branch build
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
       graalvm_version: '22.3.2'
 
   sonarcloud:
-    name: sonarcloud
+    name: Static analysis "${{ github.ref_name }}" in ${{ github.repository }}
     runs-on: ubuntu-latest
     needs:
       - user-registrations-build
@@ -27,3 +27,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+        args: >
+          -Dsonar.organization=${{ env.SONARCLOUD_ORGANIZATION }}
+          -Dsonar.projectKey=${{ env.SONARCLOUD_PROJECT }}
