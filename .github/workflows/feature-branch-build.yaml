@@ -33,6 +33,7 @@ jobs:
           args: >
             -Dsonar.organization=${{ vars.SONARCLOUD_ORGANIZATION }}
             -Dsonar.projectKey=${{ vars.SONARCLOUD_PROJECT }}
+            -Dsonar.java.binaries=./build/classes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
