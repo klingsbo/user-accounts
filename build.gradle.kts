@@ -1,6 +1,7 @@
 
 plugins {
     java
+    jacoco
     id("io.quarkus")
 }
 
@@ -30,6 +31,14 @@ version = "1.0.0-SNAPSHOT"
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.check {
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.check) // tests are required to run before generating the report
 }
 
 tasks.withType<Test> {
