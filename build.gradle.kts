@@ -1,7 +1,6 @@
-
 plugins {
     java
-    jacoco
+//    jacoco
     id("io.quarkus")
 }
 
@@ -33,13 +32,17 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-tasks.check {
-    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
-}
-
-tasks.jacocoTestReport {
-    dependsOn(tasks.check) // tests are required to run before generating the report
-}
+//jacoco {
+//
+//}
+//
+//tasks.check {
+//    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+//}
+//
+//tasks.jacocoTestReport {
+//    dependsOn(tasks.check) // tests are required to run before generating the report
+//}
 
 tasks.withType<Test> {
     systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
@@ -49,3 +52,19 @@ tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.compilerArgs.add("-parameters")
 }
+
+//tasks.jacocoTestCoverageVerification {
+//    violationRules {
+//        rule {
+//            limit {
+//                minimum = "0.95".toBigDecimal()
+//            }
+//        }
+//        rule {
+//            element = "CLASS"
+//            limit {
+//                minimum = "0.95".toBigDecimal()
+//            }
+//        }
+//    }
+//}
