@@ -44,7 +44,7 @@ tasks.withType<JavaCompile> {
 }
 
 tasks.check {
-    finalizedBy(tasks.jacocoTestCoverageVerification) // report is always generated after tests run
+    finalizedBy(tasks.jacocoTestReport, tasks.jacocoTestCoverageVerification) // report is always generated after tests run
 }
 
 //tasks.jacocoTestReport {
@@ -63,6 +63,7 @@ tasks.check {
 //}
 
 tasks.jacocoTestCoverageVerification {
+    executionData.from("$buildDir/jacoco-quarkus.exec")
     violationRules {
         rule {
             limit {
