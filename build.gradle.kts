@@ -1,6 +1,6 @@
 plugins {
     java
-//    jacoco
+    jacoco
     id("io.quarkus")
 }
 
@@ -32,14 +32,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-//jacoco {
-//
-//}
-//
-//tasks.check {
-//    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
-//}
-//
+tasks.check {
+    finalizedBy(tasks.jacocoTestCoverageVerification) // report is always generated after tests run
+}
+
 //tasks.jacocoTestReport {
 //    dependsOn(tasks.check) // tests are required to run before generating the report
 //}
@@ -53,18 +49,12 @@ tasks.withType<JavaCompile> {
     options.compilerArgs.add("-parameters")
 }
 
-//tasks.jacocoTestCoverageVerification {
-//    violationRules {
-//        rule {
-//            limit {
-//                minimum = "0.95".toBigDecimal()
-//            }
-//        }
-//        rule {
-//            element = "CLASS"
-//            limit {
-//                minimum = "0.95".toBigDecimal()
-//            }
-//        }
-//    }
-//}
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = "0.95".toBigDecimal()
+            }
+        }
+    }
+}
