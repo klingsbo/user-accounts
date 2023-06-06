@@ -34,7 +34,7 @@ jobs:
             -Dsonar.organization=${{ vars.SONARCLOUD_ORGANIZATION }}
             -Dsonar.projectKey=${{ vars.SONARCLOUD_PROJECT }}
             -Dsonar.java.binaries=./build/classes
-            -Dsonar.jacoco.reportPath=./build/jacoco
+            -Dsonar.jacoco.reportPath=./build/jacoco-quarkus.exec
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
