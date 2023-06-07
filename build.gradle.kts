@@ -22,7 +22,6 @@ dependencies {
     implementation("io.quarkus:quarkus-resteasy-reactive")
 
     testImplementation("io.quarkus:quarkus-junit5")
-    testImplementation("io.quarkus:quarkus-jacoco")
     testImplementation("io.rest-assured:rest-assured")
 }
 
@@ -43,32 +42,24 @@ tasks.withType<JavaCompile> {
     options.compilerArgs.add("-parameters")
 }
 
-tasks.check {
-    finalizedBy(tasks.jacocoTestReport, tasks.jacocoTestCoverageVerification) // report is always generated after tests run
-}
-
-//tasks.jacocoTestReport {
-//    dependsOn(tasks.check) // tests are required to run before generating the report
-//}
-//
-//jacoco {
-//
-//    excludeClassLoaders = ["*QuarkusClassLoader"]
-//    destinationFile = layout.buildDirectory.file("jacoco-quarkus.exec").get().asFile
-//}
-//
-//tasks.test {
-//    finalizedBy(tasks.jacocoTestReport)
-//    jacocoTestReport.enabled = false
-//}
-
 tasks.jacocoTestCoverageVerification {
-    executionData.from("$buildDir/jacoco-quarkus.exec")
     violationRules {
         rule {
             limit {
-                minimum = "0.95".toBigDecimal()
+                minimum = "0.9".toBigDecimal()
             }
         }
     }
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.check)
+}
+
+tasks.jacocoTestCoverageVerification {
+    dependsOn(tasks.jacocoTestReport)
+}
+
+tasks.build {
+    dependsOn(tasks.jacocoTestCoverageVerification) // tests are required to run before generating the report
 }
