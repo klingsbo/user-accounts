@@ -1,8 +1,8 @@
-name: Main branch build
+name: Feature branch build
 
 on:
   push:
-    branches:
+    branches-ignore:
       - main
 
 jobs:
