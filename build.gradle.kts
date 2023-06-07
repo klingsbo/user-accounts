@@ -54,6 +54,10 @@ tasks.jacocoTestCoverageVerification {
 
 tasks.jacocoTestReport {
     dependsOn(tasks.check)
+    reports {
+        xml.required.set(true)
+        csv.required.set(true)
+    }
 }
 
 tasks.jacocoTestCoverageVerification {
