@@ -1,7 +1,6 @@
 name: Feature branch build
 
-on:
-  push:
+on: [ push ]
 
 jobs:
   user-registrations-build:
