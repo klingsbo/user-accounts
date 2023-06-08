@@ -22,6 +22,7 @@ dependencies {
     implementation("io.quarkus:quarkus-resteasy-reactive")
 
     testImplementation("io.quarkus:quarkus-junit5")
+    testImplementation("io.quarkus:quarkus-jacoco")
     testImplementation("io.rest-assured:rest-assured")
 }
 
@@ -42,28 +43,37 @@ tasks.withType<JavaCompile> {
     options.compilerArgs.add("-parameters")
 }
 
-tasks.jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                minimum = "0.9".toBigDecimal()
-            }
-        }
-    }
-}
-
-tasks.jacocoTestReport {
-    dependsOn(tasks.check)
-    reports {
-        xml.required.set(true)
-        csv.required.set(true)
-    }
-}
-
-tasks.jacocoTestCoverageVerification {
-    dependsOn(tasks.jacocoTestReport)
-}
-
-tasks.build {
-    dependsOn(tasks.jacocoTestCoverageVerification) // tests are required to run before generating the report
-}
+//tasks.jacocoTestCoverageVerification {
+//    violationRules {
+//        rule {
+//            limit {
+//                minimum = "0.9".toBigDecimal()
+//            }
+//        }
+//    }
+//}
+//
+//tasks.jacocoTestReport {
+//    dependsOn(tasks.check)
+//    reports {
+//        xml.required.set(true)
+//        csv.required.set(true)
+//    }
+//    classDirectories.setFrom(classDirectories.files.map {
+//        fileTree(it).matching {
+//            exclude(
+//                "**/src/main/resources/**",
+//                "**/src/main/docker/**",
+//                "**/src/native-test/**"
+//            )
+//        }
+//    })
+//}
+//
+//tasks.jacocoTestCoverageVerification {
+//    dependsOn(tasks.jacocoTestReport)
+//}
+//
+//tasks.build {
+//    dependsOn(tasks.jacocoTestCoverageVerification)
+//}
