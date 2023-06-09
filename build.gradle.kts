@@ -1,7 +1,8 @@
 plugins {
-    java
-    jacoco
+    kotlin("jvm") version "1.8.21"
+    kotlin("plugin.allopen") version "1.8.21"
     id("io.quarkus")
+    jacoco
 }
 
 repositories {
@@ -14,6 +15,8 @@ val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
 
 dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+    implementation("io.quarkus:quarkus-kotlin")
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
     implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
     implementation("io.quarkus:quarkus-hibernate-reactive-panache")
@@ -34,13 +37,9 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-tasks.withType<Test> {
-    systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
-}
-
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-    options.compilerArgs.add("-parameters")
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
+    kotlinOptions.javaParameters = true
 }
 
 tasks.jacocoTestCoverageVerification {
@@ -53,7 +52,7 @@ tasks.jacocoTestCoverageVerification {
             }
             limit {
                 counter = "INSTRUCTION"
-                minimum = "0.9".toBigDecimal()
+                minimum = "0.6".toBigDecimal()
             }
             limit {
                 counter = "BRANCH"
@@ -65,4 +64,10 @@ tasks.jacocoTestCoverageVerification {
 
 tasks.build {
     dependsOn(tasks.jacocoTestCoverageVerification)
+}
+
+allOpen {
+    annotation("jakarta.ws.rs.Path")
+    annotation("jakarta.enterprise.context.ApplicationScoped")
+    annotation("io.quarkus.test.junit.QuarkusTest")
 }

@@ -1,38 +1,21 @@
-package com.github.klingsbo.greeting;
+package com.github.klingsbo.greeting
 
-import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import jakarta.inject.Inject
+import jakarta.ws.rs.*
+import jakarta.ws.rs.core.MediaType
+import jakarta.ws.rs.core.Response
 
 @Path("/hello")
-public class GreetingResource {
-
-    private final GreetingService greetingService;
-
-    @Inject
-    public GreetingResource(final GreetingService greetingService) {
-        this.greetingService = greetingService;
-    }
+class GreetingResource @Inject constructor(private val greetingService: GreetingService) {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello from RESTEasy Reactive";
-    }
+    fun hello() = "Hello from RESTEasy Reactive"
 
     @POST
-    public Response create() {
-        return Response.status(Response.Status.CREATED).build();
-    }
+    fun create() = Response.status(Response.Status.CREATED).build()
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public GreetingDto newHello() {
-        return greetingService.newHello();
-    }
+    fun newHello() = greetingService.newHello()
 }
