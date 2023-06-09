@@ -43,37 +43,26 @@ tasks.withType<JavaCompile> {
     options.compilerArgs.add("-parameters")
 }
 
-//tasks.jacocoTestCoverageVerification {
-//    violationRules {
-//        rule {
-//            limit {
-//                minimum = "0.9".toBigDecimal()
-//            }
-//        }
-//    }
-//}
-//
-//tasks.jacocoTestReport {
-//    dependsOn(tasks.check)
-//    reports {
-//        xml.required.set(true)
-//        csv.required.set(true)
-//    }
-//    classDirectories.setFrom(classDirectories.files.map {
-//        fileTree(it).matching {
-//            exclude(
-//                "**/src/main/resources/**",
-//                "**/src/main/docker/**",
-//                "**/src/native-test/**"
-//            )
-//        }
-//    })
-//}
-//
-//tasks.jacocoTestCoverageVerification {
-//    dependsOn(tasks.jacocoTestReport)
-//}
-//
-//tasks.build {
-//    dependsOn(tasks.jacocoTestCoverageVerification)
-//}
+tasks.jacocoTestCoverageVerification {
+    executionData.setFrom("./build/jacoco-quarkus.exec")
+    violationRules {
+        rule {
+            limit {
+                counter = "CLASS"
+                minimum = "1".toBigDecimal()
+            }
+            limit {
+                counter = "INSTRUCTION"
+                minimum = "0.9".toBigDecimal()
+            }
+            limit {
+                counter = "BRANCH"
+                minimum = "0.8".toBigDecimal()
+            }
+        }
+    }
+}
+
+tasks.build {
+    dependsOn(tasks.jacocoTestCoverageVerification)
+}
