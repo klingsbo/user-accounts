@@ -1,8 +1,12 @@
-package com.github.klingsbo;
+package com.github.klingsbo.greeting;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.junit.jupiter.api.Test;
 
 @QuarkusIntegrationTest
 public class GreetingResourceIT extends GreetingResourceTest {
-    // Execute the same tests but in packaged mode.
+    @Test
+    public void loads() {
+
+    }
 }
