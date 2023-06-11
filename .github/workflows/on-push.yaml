@@ -18,8 +18,8 @@ jobs:
           cache: 'gradle'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Gradle setup
+      - name: Install gradle
         uses: gradle/gradle-build-action@v2.4.2
 
-      - name: Gradle build
-        run: ./gradlew build
+      - name: Build application and verify code coverage
+        run: ./gradlew build koverVerify

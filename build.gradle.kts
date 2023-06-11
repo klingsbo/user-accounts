@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm") version "1.8.21"
     kotlin("plugin.allopen") version "1.8.21"
     id("io.quarkus")
-    jacoco
+    id("org.jetbrains.kotlinx.kover") version "0.4.2"
 }
 
 repositories {
@@ -42,28 +42,12 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions.javaParameters = true
 }
 
-tasks.jacocoTestCoverageVerification {
-    executionData.setFrom("./build/jacoco-quarkus.exec")
-    violationRules {
-        rule {
-            limit {
-                counter = "CLASS"
-                minimum = "1".toBigDecimal()
-            }
-            limit {
-                counter = "INSTRUCTION"
-                minimum = "0.6".toBigDecimal()
-            }
-            limit {
-                counter = "BRANCH"
-                minimum = "0.8".toBigDecimal()
-            }
+tasks.koverVerify {
+    rule {
+        bound {
+            minValue = 90
         }
     }
-}
-
-tasks.build {
-    dependsOn(tasks.jacocoTestCoverageVerification)
 }
 
 allOpen {
