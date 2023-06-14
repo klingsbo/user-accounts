@@ -3,7 +3,7 @@ name: Feature branch build
 on: [ push ]
 
 jobs:
-  user-registrations-build:
+  user-accounts-build:
     name: Build "${{ github.ref_name }}" in ${{ github.repository }}
     runs-on: ubuntu-latest
     steps:
