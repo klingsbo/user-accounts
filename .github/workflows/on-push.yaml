@@ -24,9 +24,9 @@ jobs:
         image: postgres
         # Provide the password for postgres
         env:
-          POSTGRES_DB=user-accounts
-          POSTGRES_USER=${ env.PG_USER }
-          POSTGRES_PASSWORD=${ env.PG_PASS }
+          POSTGRES_DB: user-accounts
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 123456
 
         # Set health checks to wait until postgres has started
         options: >-
