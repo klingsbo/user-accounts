@@ -2,7 +2,37 @@ name: Feature branch build
 
 on: [ push ]
 
+env:
+  PG_DB: user-accounts
+  PG_USER: postgres
+  PG_PASS: 123456
+
 jobs:
+  container-job:
+    # Containers must run in Linux based operating systems
+    runs-on: ubuntu-latest
+    # Docker Hub image that `container-job` executes in
+    container: node:10.18-jessie
+
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_DB=user-accounts
+          POSTGRES_USER=${ env.PG_USER }
+          POSTGRES_PASSWORD=${ env.PG_PASS }
+
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
   user-accounts-build:
     name: Build "${{ github.ref_name }}" in ${{ github.repository }}
     runs-on: ubuntu-latest
