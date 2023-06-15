@@ -8,9 +8,11 @@ env:
   PG_PASS: 123456
 
 jobs:
-  container-job:
-    # Containers must run in Linux based operating systems
+  user-accounts-build:
+    name: Build "${{ github.ref_name }}" in ${{ github.repository }}
+
     runs-on: ubuntu-latest
+    # Containers must run in Linux based operating systems
     # Docker Hub image that `container-job` executes in
     container: node:10.18-jessie
 
@@ -33,9 +35,6 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-  user-accounts-build:
-    name: Build "${{ github.ref_name }}" in ${{ github.repository }}
-    runs-on: ubuntu-latest
     steps:
       - name: Check out
         uses: actions/checkout@v3
