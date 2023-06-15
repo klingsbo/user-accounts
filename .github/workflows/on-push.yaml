@@ -5,25 +5,16 @@ on: [ push ]
 jobs:
   user-accounts-build:
     name: Build "${{ github.ref_name }}" in ${{ github.repository }}
-
     runs-on: ubuntu-latest
-    # Containers must run in Linux based operating systems
-    # Docker Hub image that `container-job` executes in
-#    container: node:10.18-jessie
-
-    # Service containers to run with `container-job`
     services:
-      # Label used to access the service container
       postgres:
-        # Docker Hub image
-        image: postgres
-        # Provide the password for postgres
+        image: postgres:15
         env:
           POSTGRES_DB: user-accounts
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: 123456
-
-        # Set health checks to wait until postgres has started
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
