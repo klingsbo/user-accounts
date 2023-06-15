@@ -4,7 +4,6 @@ import com.github.klingsbo.accounts.exceptions.AccountAlreadyExistsException
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.transaction.Transactional
 import java.time.ZonedDateTime
-import java.util.*
 
 @ApplicationScoped
 class AccountsService {
@@ -23,5 +22,4 @@ class AccountsService {
 
         return AccountDto(entity.id, entity.email, entity.createdAt, entity.updatedAt)
     }
-
 }
