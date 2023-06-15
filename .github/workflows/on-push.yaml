@@ -3,9 +3,25 @@ name: Feature branch build
 on: [ push ]
 
 jobs:
-  user-registrations-build:
+  user-accounts-build:
     name: Build "${{ github.ref_name }}" in ${{ github.repository }}
     runs-on: ubuntu-latest
+
+    services:
+      user-accounts-postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: user-accounts
+          POSTGRES_USER: ${{ secrets.USER_ACCOUNTS_POSTGRES_USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.USER_ACCOUNTS_POSTGRES_PASSWORD }}
+        ports:
+          - 5401:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Check out
         uses: actions/checkout@v3
@@ -23,3 +39,7 @@ jobs:
 
       - name: Gradle build
         run: ./gradlew build
+        env:
+          USER_ACCOUNTS_POSTGRES_USERNAME: ${{ secrets.USER_ACCOUNTS_POSTGRES_USERNAME }}
+          USER_ACCOUNTS_POSTGRES_PASSWORD: ${{ secrets.USER_ACCOUNTS_POSTGRES_PASSWORD }}
+

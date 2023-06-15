@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 
 @QuarkusTest
 @TestHTTPEndpoint(GreetingResource::class)
-open class GreetingResourceTest {
+class GreetingResourceTest {
     @Test
     fun testHelloEndpoint() {
         RestAssured.given().`when`().get().then().statusCode(200).body(CoreMatchers.`is`("Hello from RESTEasy Reactive"))
