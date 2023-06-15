@@ -4,6 +4,7 @@ import io.quarkus.test.common.http.TestHTTPEndpoint
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import io.restassured.http.Header
+import jakarta.transaction.Transactional
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.Assertions.*
@@ -32,9 +33,17 @@ class AccountsResourceTest {
     }
 
     @Test
+    @Transactional
     fun `create new account return conflicts`() {
         val testEmail = "${UUID.randomUUID()}@mail.com"
-        Account().apply { email = testEmail }.persist()
+
+        given()
+            .header(Header("Content-Type", "application/json"))
+            .header(Header("Accept", "application/json"))
+            .body("{\"email\": \"$testEmail\"}")
+            .`when`().post()
+            .then()
+            .statusCode(201)
 
         given()
             .header(Header("Content-Type", "application/json"))
