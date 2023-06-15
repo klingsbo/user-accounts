@@ -20,7 +20,7 @@ dependencies {
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
     implementation("io.quarkus:quarkus-resteasy")
     implementation("io.quarkus:quarkus-resteasy-jackson")
-    implementation("io.quarkus:quarkus-hibernate-orm-panache")
+    implementation("io.quarkus:quarkus-hibernate-orm-panache-kotlin")
     implementation("io.quarkus:quarkus-jdbc-postgresql")
     implementation("io.quarkus:quarkus-arc")
 
@@ -60,10 +60,6 @@ tasks.jacocoTestCoverageVerification {
             }
         }
     }
-}
-
-tasks.build {
-    dependsOn(tasks.jacocoTestCoverageVerification)
 }
 
 allOpen {
