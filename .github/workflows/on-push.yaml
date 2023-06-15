@@ -2,12 +2,6 @@ name: Feature branch build
 
 on: [ push ]
 
-env:
-  PG_DB: user-accounts
-  USER_ACCOUNTS_POSTGRES_USERNAME: postgres
-  USER_ACCOUNTS_POSTGRES_PASSWORD: 123456
-  USER_ACCOUNTS_POSTGRES_PORT: 5432
-
 jobs:
   user-accounts-build:
     name: Build "${{ github.ref_name }}" in ${{ github.repository }}
@@ -15,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     # Containers must run in Linux based operating systems
     # Docker Hub image that `container-job` executes in
-    container: node:10.18-jessie
+#    container: node:10.18-jessie
 
     # Service containers to run with `container-job`
     services:
