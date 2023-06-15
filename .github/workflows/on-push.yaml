@@ -4,8 +4,9 @@ on: [ push ]
 
 env:
   PG_DB: user-accounts
-  PG_USER: postgres
-  PG_PASS: 123456
+  USER_ACCOUNTS_POSTGRES_USERNAME: postgres
+  USER_ACCOUNTS_POSTGRES_PASSWORD: 123456
+  USER_ACCOUNTS_POSTGRES_PORT: 5432
 
 jobs:
   user-accounts-build:
